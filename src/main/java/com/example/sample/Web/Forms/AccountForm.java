@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Component
-public class CreateAccountForm {
+public class AccountForm {
   @Getter @Setter
   @NotNull
   @Size(min = 5, max = 30)

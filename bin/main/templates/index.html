@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
   <head>
     <title>hoge</title>
   </head>
   <body>
     <h1>Hello</h1>
-    <form method="post" action="create">
-      <input type="text" name="name" value=""/>
-      <input type="password" name="password" value=""/>
-      <input type="submit" value=""/>
-    </form>
+    <div>
+      <fieldset>
+        <legend>Login</legend>
+        <a th:href="@{/login}">login</a>
+      </fieldset>
+      <fieldset>
+        <legend>Result</legend>
+      <a th:href="@{/result}">result</a>
+      </fieldset>
+      <fieldset>
+        <legend>Create</legend>
+      <a th:href="@{/create}">create</a>
+      </fieldset>
+    </div>
   </body>
 </html>

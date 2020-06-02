@@ -6,3 +6,7 @@ Spring-bootの勉強用
 ## run
 
 `gradle bootRun`
+
+## todo
+
+- db自動作成ツールの導入

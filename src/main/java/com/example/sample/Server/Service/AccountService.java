@@ -9,6 +9,7 @@ import com.example.sample.Gateway.Repository.AccountRepository;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,10 +26,22 @@ public class AccountService {
     return res;
   }
 
+  public Account findOne(String userName){
+    return AccountRepository.findByName(userName);
+  }
+
   public void save(AccountDomain domain){
     Account account = new Account(DATE_NOW);
     account.setCreated_at(DATE_NOW);
     BeanUtils.copyProperties(domain, account);
     AccountRepository.save(account);
+  }
+
+  public String login(AccountDomain domain) throws UsernameNotFoundException {
+    Account account = this.findOne(domain.getName());
+    if(domain.getPassword().equals(account.getPassword())){
+      return account.getName();
+    }
+    throw new UsernameNotFoundException("username not found or password not throw");
   }
 }
