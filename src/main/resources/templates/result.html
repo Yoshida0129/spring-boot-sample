@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+  <head>
+    <title>hoge</title>
+  </head>
+  <body>
+    <h1>result</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>create day</th>
+          <th>update day</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="data : ${accountData}" th:object="${data}">
+          <td th:text="*{id}"></td>
+          <td th:text="*{name}"></td>
+          <td th:text="*{created_at}"></td>
+          <td th:text="*{updated_at}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
