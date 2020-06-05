@@ -1,7 +1,5 @@
 package com.example.sample.Gateway.Repository;
 
-import java.util.List;
-
 import com.example.sample.Gateway.Entity.Account;
 
 import org.springframework.data.jpa.repository.JpaRepository;

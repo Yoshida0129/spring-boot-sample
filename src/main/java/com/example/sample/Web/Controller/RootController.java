@@ -6,7 +6,6 @@ import com.example.sample.Server.Service.AccountService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/")
 public class RootController {
+
 	@Autowired
 	AccountDomain accountDomain;
+
 	@Autowired
 	AccountService service;
 
@@ -38,36 +39,27 @@ public class RootController {
 	public String accountCreate(@Validated @ModelAttribute AccountForm form, BindingResult result, Model model, ModelMap modelmap){
 		if(result.hasErrors()){
 			modelmap.addAttribute("errorMsg", "フォーム値が不適切です。");
-			return "redirect:/create";
+			return "create";
 		}
 		BeanUtils.copyProperties(form, accountDomain);
 		try{
 			service.save(accountDomain);
+			return "result";
 		}catch(Exception e){
-			modelmap.addAttribute("errorMsg", "ユーザ名は登録されています。");
+			modelmap.addAttribute("errorMsg", e.getMessage());
 			return "create";
 		}
-		return "redirect:/result";
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@RequestMapping(value = "login")
 	public String loginScreen(){
 		return "login";
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(@Validated @ModelAttribute AccountForm form, BindingResult result, Model model, ModelMap modelmap){
-		if(result.hasErrors()){
-			modelmap.addAttribute("errorMsg", "フォーム値が不適切です。");
-			return "login";
-		}
-		BeanUtils.copyProperties(form, accountDomain);
-		try {
-			String accountName = service.login(accountDomain);
-			return "redirect:result/" + accountName;
-		} catch (Exception e){
-			modelmap.addAttribute("errorMsg", e.getMessage());
-			return "login";
-		}
+	@RequestMapping(value = "login-error")
+	public String loginErrorScreen(ModelMap modelmap){
+		modelmap.addAttribute("errorMsg", "ユーザ名もしくはパスワードが異なります。");
+		return "login";
 	}
+
 }

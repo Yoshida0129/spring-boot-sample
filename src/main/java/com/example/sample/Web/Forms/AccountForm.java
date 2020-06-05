@@ -3,6 +3,8 @@ package com.example.sample.Web.Forms;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -19,4 +21,7 @@ public class AccountForm {
   @NotNull
   @Size(min = 8, max = 16)
   private String password;
+
+  @Autowired
+  PasswordEncoder passwordEncoder;
 }

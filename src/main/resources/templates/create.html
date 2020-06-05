@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>hoge</title>
+    <title>Create</title>
   </head>
   <body>
     <div>
       <a th:href="@{/}">最初の画面に戻る</a>
     </div>
-    <form action="create" method="post">
+    <form th:action="@{/create}" method="post">
       <fieldset>
         <legend>CreateForm</legend>
         <input type="text" name="name" placeholder="Name"/>

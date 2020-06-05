@@ -9,17 +9,25 @@ import com.example.sample.Gateway.Repository.AccountRepository;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class AccountService {
+
   private final Date DATE_NOW = new Date(System.currentTimeMillis());
 
   @Autowired
   AccountRepository AccountRepository;
+
+  @Autowired
+  PasswordEncoder passwordEncoder;
+
+  @Autowired
+  AuthenticationManager manager;
 
   public List<Account> findAll(){
     List<Account> res = AccountRepository.findAll();
@@ -34,14 +42,19 @@ public class AccountService {
     Account account = new Account(DATE_NOW);
     account.setCreated_at(DATE_NOW);
     BeanUtils.copyProperties(domain, account);
-    AccountRepository.save(account);
+    account.setPassword(passwordEncoder.encode(account.getPassword()));
+    account = AccountRepository.save(account);
+    this.authentication(account, domain.getPassword());
   }
 
-  public String login(AccountDomain domain) throws UsernameNotFoundException {
-    Account account = this.findOne(domain.getName());
-    if(domain.getPassword().equals(account.getPassword())){
-      return account.getName();
+  private void authentication(Account user, String rawPassword) {
+    LoginUser loginUser = new LoginUser(user);
+    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, rawPassword, loginUser.getAuthorities());
+    manager.authenticate(authenticationToken);
+    if (authenticationToken.isAuthenticated()) {
+      SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    } else {
+      throw new RuntimeException("login failure");
     }
-    throw new UsernameNotFoundException("username not found or password not throw");
   }
 }

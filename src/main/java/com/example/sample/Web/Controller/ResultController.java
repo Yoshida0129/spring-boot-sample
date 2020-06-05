@@ -11,11 +11,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+// 追々adminページにする予定
+
 @Controller
 @RequestMapping("/result")
 public class ResultController {
 	@Autowired
-  AccountService service = new AccountService();
+  AccountService service;
 
 	@RequestMapping("")
 	public String result(ModelMap modelMap){
