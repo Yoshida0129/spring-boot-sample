@@ -1,0 +1,6 @@
+fieldset {
+  display: flex;
+}
+input {
+  margin: 10px;
+}

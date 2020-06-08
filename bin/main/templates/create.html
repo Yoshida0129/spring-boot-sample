@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Create</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
   </head>
   <body>
     <div>
@@ -11,7 +12,9 @@
       <fieldset>
         <legend>CreateForm</legend>
         <input type="text" name="name" placeholder="Name"/>
+        <p>5〜30文字で入力してください</p>
         <input type="password" name="password" placeholder="Password"/>
+        <p>8~16文字で入力してください</p>
         <input type="submit" value="submit"/>
         <p th:text="${errorMsg}"></p>
       </fieldset>
