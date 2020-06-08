@@ -44,7 +44,7 @@ public class RootController {
 		BeanUtils.copyProperties(form, accountDomain);
 		try{
 			service.save(accountDomain);
-			return "result";
+			return "login";
 		}catch(Exception e){
 			modelmap.addAttribute("errorMsg", e.getMessage());
 			return "create";
