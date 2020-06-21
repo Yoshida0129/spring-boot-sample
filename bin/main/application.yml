@@ -8,8 +8,3 @@ spring:
   jpa:
     database: POSTGRESQL
     hibernate: update
-  flyway:
-    url: jdbc:postgresql://localhost:5432/hogehoge
-    user: postgres
-    password: postgres
-    driver: org.postgresql.Driver
