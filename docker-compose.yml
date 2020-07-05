@@ -1,0 +1,26 @@
+version: "3"
+services:
+  java:
+    image: sample:0.0.1-SNAPSHOT
+    depends_on:
+      - postgresql
+    ports:
+      - "8080:8080"
+    links:
+      - postgresql
+    # tty: true
+  postgresql:
+    build:
+      context: ./
+      dockerfile: ./docker/sql/Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "hogehoge"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - "db:/var/lib/postgresql/data"
+volumes:
+  db:
+    driver: local
