@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'war'
 	id "org.flywaydb.flyway" version "6.4.4"
+	id 'com.google.cloud.tools.jib' version '2.4.0'
 }
 
 compileJava {
@@ -56,7 +57,7 @@ test {
 }
 
 flyway {
-	url = "jdbc:postgresql://localhost:5432/hogehoge"
+	url = "jdbc:postgresql://postgresql:5432/hogehoge"
 	user = "postgres"
 	password = "postgres"
 }
