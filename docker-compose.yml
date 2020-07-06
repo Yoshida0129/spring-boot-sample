@@ -8,7 +8,6 @@ services:
       - "8080:8080"
     links:
       - postgresql
-    # tty: true
   postgresql:
     build:
       context: ./
